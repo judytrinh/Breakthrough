@@ -14,6 +14,8 @@ public class BallController : MonoBehaviour {
 			VELOCITY.x *= -1;
 		else if (col.gameObject.name == "Ceiling")
 			VELOCITY.y *= -1;
+		else if (col.gameObject.name == "Paddle")
+			VELOCITY.y *=-1;
 	}
 
 	// Update is called once per frame

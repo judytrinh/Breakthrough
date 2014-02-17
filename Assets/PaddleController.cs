@@ -3,8 +3,11 @@ using System.Collections;
 
 public class PaddleController : MonoBehaviour {
 
+	private BoxCollider mainCollider;
+
 	// Use this for initialization
 	void Start () {
+		mainCollider = GetComponent<BoxCollider> ();
 		Screen.showCursor = false;
 	}
 	
@@ -12,6 +15,6 @@ public class PaddleController : MonoBehaviour {
 	void Update () {
 		Vector3 mousePos = Input.mousePosition;
 		Vector3 wantedPos = Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.z, mousePos.z));
-		transform.position = new Vector3(wantedPos.x, transform.position.y, transform.position.z);
+		transform.position = new Vector3(wantedPos.x + mainCollider.size.x/2, transform.position.y, transform.position.z);
 	}
 }
