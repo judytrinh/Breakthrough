@@ -1,0 +1,12 @@
+Some style documentation
+
+- global variables: _myGlobalVariable
+- constant globals: MY_CONSTANT_GLOBAL
+- no space between function name and argument list parenthesis
+- curly braces are NOT on a newline after the function header 
+- be minimalistic and remove braces when possible
+  ex:
+      if (true) velocity = 1.0;
+      else velocity = 0;
+- private helpers are camelCase
+- new functions are UpperCase
