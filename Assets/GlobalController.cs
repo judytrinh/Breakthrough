@@ -18,6 +18,7 @@ public class GlobalController : MonoBehaviour {
 	// frequently referenced objects
 	private GUIText _scoreGUIText;
 	private GUIText _livesGUIText;
+	private GUIText _winLossGUIText;
 	private	GameObject _ballObject;
 	private BallController _ballController;
 
@@ -44,6 +45,11 @@ public class GlobalController : MonoBehaviour {
 		_ballObject = GameObject.Find("Ball");
 		_ballController = _ballObject.GetComponent<BallController>();
 
+		// init Win Loss message reference
+		GameObject winLossText = GameObject.Find("Win Loss Text");
+		_winLossGUIText = winLossText.GetComponent<GUIText>();
+		_winLossGUIText.text = "";
+
 		// generate BrickPrefabs
 		for (int i = 0; i < BRICK_NUM_COLS; i++) {
 			for (int j = 0; j < BRICK_NUM_ROWS; j++) {
@@ -61,6 +67,16 @@ public class GlobalController : MonoBehaviour {
 				brick.transform.position = pos;
 			}
 		}
+		//createReplayButton();
+	}
+
+	private void createWinScreen() {
+		_winLossGUIText.text = "You Win!";
+		//createReplayButton();
+	}
+
+	private void createLossScreen() {
+		_winLossGUIText.text = "You Lose!";
 	}
 
 	public void KillBrick(int pointValue) {
@@ -92,10 +108,10 @@ public class GlobalController : MonoBehaviour {
 	void Update () {
 
 		// Win Condition
-		if (_win) Debug.Log("YOU WIN");
+		if (_win) Application.LoadLevel("win-screen");
 
 		// Lose Condition
-		if (_lose) Debug.Log("YOU LOSE");
+		if (_lose) Application.LoadLevel("loss-screen");	
 
 		// reset the ball if it falls below the paddle 
 		if (_ballObject.transform.position.y < 0.8f) {

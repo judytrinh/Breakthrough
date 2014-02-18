@@ -50,6 +50,7 @@
      <Compile Include="Assets\GlobalController.cs" />
      <Compile Include="Assets\PaddleController.cs" />
      <Compile Include="Assets\Resources\BrickController.cs" />
+     <Compile Include="Assets\WinScreenGUI.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
