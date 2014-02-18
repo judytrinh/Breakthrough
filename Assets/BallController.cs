@@ -21,7 +21,7 @@ public class BallController : MonoBehaviour {
 			_velocity.y *= -1;
 	}
 
-	void FixedUpdate() {
+	public void FixedUpdate() {
 		rigidbody.MovePosition(rigidbody.position + _velocity * Time.deltaTime);
 	}
 

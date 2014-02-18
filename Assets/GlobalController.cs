@@ -16,6 +16,7 @@ public class GlobalController : MonoBehaviour {
 	void Start () {
 		_score = 0;
 		_livesLeft = 3;
+		_bricksRemaining = BRICK_NUM_COLS * BRICK_NUM_ROWS;
 
 		// generate BrickPrefabs
 		for (int i = 0; i < BRICK_NUM_COLS; i++) {
@@ -34,6 +35,10 @@ public class GlobalController : MonoBehaviour {
 				brick.transform.position = pos;
 			}
 		}
+	}
+
+	public void KillBrick() {
+		_bricksRemaining--;
 	}
 	
 	// Update is called once per frame

@@ -8,6 +8,9 @@ public class BrickController : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision col) {
+		GameObject globalController = GameObject.Find("Global Controller");
+		GlobalController gScript = globalController.GetComponent<GlobalController>();
+		gScript.KillBrick();
 		Destroy(gameObject);
 	}
 	
