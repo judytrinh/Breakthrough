@@ -5,9 +5,11 @@ using System.Collections;
 public class BallController : MonoBehaviour {
 
 	public Vector3 _velocity;
+	private Vector3 RESET_POSITION = new Vector3(0, 2.0f, 0);
+	private Vector3 RESET_VELOCITY = new Vector3(3.0f, 3.0f, 0.0f);
 
 	void Start () {
-		_velocity = new Vector3(3.0f, 3.0f, 0.0f);
+		Reset();
 	}
 
 	void OnCollisionEnter(Collision col) {
@@ -21,12 +23,17 @@ public class BallController : MonoBehaviour {
 			_velocity.y *= -1;
 	}
 
+	public void Reset() {
+		_velocity = RESET_VELOCITY;
+		rigidbody.position = RESET_POSITION;
+	}
+
 	public void FixedUpdate() {
 		rigidbody.MovePosition(rigidbody.position + _velocity * Time.deltaTime);
 	}
 
+
 	// Update is called once per frame
 	void Update () {
-	
 	}
 }

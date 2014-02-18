@@ -7,7 +7,7 @@ public class PaddleController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		mainCollider = GetComponent<BoxCollider> ();
+		mainCollider = GetComponent<BoxCollider>();
 		Screen.showCursor = false;
 	}
 	

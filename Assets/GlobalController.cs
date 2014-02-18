@@ -7,16 +7,42 @@ public class GlobalController : MonoBehaviour {
 	private int _livesLeft;
 	private int _bricksRemaining;
 	public bool _paused;
+	public bool _win;
+	public bool _lose;
 
 	private int BRICK_NUM_COLS = 12;
 	private int BRICK_NUM_ROWS = 6;
 	private float BRICK_WIDTH_BUFFER_SPACE = 0.05f;
 	private float BRICK_HEIGHT_BUFFER_SPACE = 0.05f;
 
+	// frequently referenced objects
+	private GUIText _scoreGUIText;
+	private GUIText _livesGUIText;
+	private	GameObject _ballObject;
+	private BallController _ballController;
+
 	void Start () {
+		_paused = false;
+		_win = false;
+		_lose = false;
+
 		_score = 0;
 		_livesLeft = 3;
 		_bricksRemaining = BRICK_NUM_COLS * BRICK_NUM_ROWS;
+
+		// init score text
+		GameObject scoreText = GameObject.Find("Score Text");
+		_scoreGUIText = scoreText.GetComponent<GUIText>();
+		updateScoreText();
+
+		// init lives text
+		GameObject livesText = GameObject.Find("Lives Text");
+		_livesGUIText = livesText.GetComponent<GUIText>();
+		updateLivesText();
+
+		// init ball reference
+		_ballObject = GameObject.Find("Ball");
+		_ballController = _ballObject.GetComponent<BallController>();
 
 		// generate BrickPrefabs
 		for (int i = 0; i < BRICK_NUM_COLS; i++) {
@@ -37,12 +63,44 @@ public class GlobalController : MonoBehaviour {
 		}
 	}
 
-	public void KillBrick() {
+	public void KillBrick(int pointValue) {
 		_bricksRemaining--;
+		_score += pointValue;
+		updateScoreText();
+
+		if (_bricksRemaining == 0) _win = true;
+	}
+
+	public void DockLife() {
+		if (_livesLeft > 0) {
+			_livesLeft--;
+			updateLivesText();
+		} else {
+			_lose = true;
+		}
 	}
 	
+	private void updateScoreText() {
+		_scoreGUIText.text = "Score: " + _score;
+	}
+
+	private void updateLivesText() {
+		_livesGUIText.text = "Lives: " + _livesLeft;
+	}
+
 	// Update is called once per frame
 	void Update () {
-	
+
+		// Win Condition
+		if (_win) Debug.Log("YOU WIN");
+
+		// Lose Condition
+		if (_lose) Debug.Log("YOU LOSE");
+
+		// reset the ball if it falls below the paddle 
+		if (_ballObject.transform.position.y < 0.8f) {
+			DockLife();
+			_ballController.Reset();
+		}
 	}
 }
