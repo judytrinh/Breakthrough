@@ -9,6 +9,7 @@ public class GlobalController : MonoBehaviour {
 	public bool _paused;
 	public bool _win;
 	public bool _lose;
+	public bool _mode3D;
 
 	private int BRICK_NUM_COLS = 12;
 	private int BRICK_NUM_ROWS = 6;
@@ -21,11 +22,14 @@ public class GlobalController : MonoBehaviour {
 	private GUIText _winLossGUIText;
 	private	GameObject _ballObject;
 	private BallController _ballController;
+	private Camera _mainCamera;
+	private Camera _perspCamera;
 
 	void Start () {
 		_paused = false;
 		_win = false;
 		_lose = false;
+		_mode3D = false;
 
 		_score = 0;
 		_livesLeft = 3;
@@ -49,6 +53,15 @@ public class GlobalController : MonoBehaviour {
 		GameObject winLossText = GameObject.Find("Win Loss Text");
 		_winLossGUIText = winLossText.GetComponent<GUIText>();
 		_winLossGUIText.text = "";
+
+		// init main and persp cameras
+		Camera[] cams = Camera.allCameras;
+
+		for (int i = 0; i < cams.Length; i++) {
+			string camName = cams[i].gameObject.name;
+			if (camName == "Main Camera") _mainCamera = cams[i];
+			else if (camName == "Persp Camera") _perspCamera = cams[i];
+		}
 
 		// generate BrickPrefabs
 		for (int i = 0; i < BRICK_NUM_COLS; i++) {
@@ -104,6 +117,21 @@ public class GlobalController : MonoBehaviour {
 		_livesGUIText.text = "Lives: " + _livesLeft;
 	}
 
+	private void toggle3DMode() {
+		_mode3D = !_mode3D;
+		if (_mode3D) {
+			_mainCamera.tag = "3DCamera";
+			_perspCamera.tag = "MainCamera";
+			_perspCamera.depth = 1;
+			_mainCamera.depth = -1;
+		} else {
+			_mainCamera.tag = "MainCamera";
+			_perspCamera.tag = "3DCamera";
+			_perspCamera.depth = -1;
+			_mainCamera.depth = 1;
+		}
+	}
+
 	// Update is called once per frame
 	void Update () {
 
@@ -118,5 +146,11 @@ public class GlobalController : MonoBehaviour {
 			DockLife();
 			_ballController.Reset();
 		}
+
+		// toggle mode
+		if (Input.GetKey(KeyCode.Q)) {
+			toggle3DMode();
+		}
+
 	}
 }
