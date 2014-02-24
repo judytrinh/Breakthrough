@@ -6,3 +6,9 @@
 .csproj
 .unityproj
 build-test.app
+
+*.exe
+*.app
+*.mp4
+
+.DS_Store
