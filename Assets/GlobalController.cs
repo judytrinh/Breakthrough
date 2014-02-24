@@ -33,7 +33,7 @@ public class GlobalController : MonoBehaviour {
 
 		_score = 0;
 		_livesLeft = 3;
-		_bricksRemaining = BRICK_NUM_COLS * BRICK_NUM_ROWS;
+		_bricksRemaining = BRICK_NUM_COLS * BRICK_NUM_ROWS * 2;
 
 		// init score text
 		GameObject scoreText = GameObject.Find("Score Text");

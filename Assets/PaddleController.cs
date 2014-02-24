@@ -4,9 +4,12 @@ using System.Collections;
 public class PaddleController : MonoBehaviour {
 
 	public bool _invisible;
+
 	private GameObject _globalObj;
 	private GlobalController _globalController; 
 	private BoxCollider _mainCollider;
+	private GameObject _ball;
+	private BallController _ballController;
 
 	// Use this for initialization
 	void Start () {
@@ -15,6 +18,8 @@ public class PaddleController : MonoBehaviour {
 		Screen.showCursor = false;
 		_globalObj = GameObject.Find("Global Controller");
 		_globalController = _globalObj.GetComponent<GlobalController>();
+		_ball = GameObject.Find("Ball");
+		_ballController = _ball.GetComponent<BallController>();
 	}
 	
 	// Update is called once per frame
@@ -40,9 +45,15 @@ public class PaddleController : MonoBehaviour {
 
 		// Determining pass-through behavior
 		if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift)) {
-			_invisible = true;
+			if (!_invisible) {
+				_invisible = true;
+				_ballController.ToggleCollisionWith(gameObject, true);
+			}
 		} else {
-			_invisible = false;
+			if (_invisible) {
+				_invisible = false;
+				_ballController.ToggleCollisionWith(gameObject, false);
+			}
 		}
 
 	}

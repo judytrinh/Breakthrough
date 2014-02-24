@@ -5,14 +5,10 @@ using System.Collections;
 public class BallController : MonoBehaviour {
 
 	public Vector3 _velocity;
-	private GameObject _paddle;
-	private PaddleController _paddleController;
 	private Vector3 RESET_POSITION = new Vector3(0, 5.9f, 0);
 	private Vector3 RESET_VELOCITY = new Vector3(3.0f, 3.0f, 0.0f);
 
 	void Start () {
-		_paddle = GameObject.Find("Paddle");
-		_paddleController = _paddle.GetComponent<PaddleController>();
 		Reset();
 	}
 
@@ -29,7 +25,7 @@ public class BallController : MonoBehaviour {
 				_velocity.y *= -1;
 				break;
 			case "Paddle":
-				if (!_paddleController._invisible) _velocity.y *= -1;
+					_velocity.y *= -1;
 				break;
 			case "BrickPrefab(Clone)":
 				_velocity.y *= -1;
@@ -38,21 +34,16 @@ public class BallController : MonoBehaviour {
 				Debug.Log("UNHANDLED GAME OBJECT IN BallController.cs: OnCollisionEnter()");
 				break;
 		}
-//		if (col.gameObject.name == "Wall")
-//			_velocity.x *= -1;
-//		else if (col.gameObject.name == "Ceiling")
-//			_velocity.y *= -1;
-//		else if (col.gameObject.name == "Paddle") {
-//			if (!_paddleController._invisible) {
-//				_velocity.y *= -1;
-//			}
-//		} else if (col.gameObject.name == "BrickPrefab(Clone)")
-//			_velocity.y *= -1;
 	}
 
 	public void Reset() {
 		_velocity = RESET_VELOCITY;
 		rigidbody.position = RESET_POSITION;
+	}
+
+	// Wrapped function allowing Ball-object collisions to be ignored
+	public void ToggleCollisionWith(GameObject collidingObj, bool ignore) {
+		Physics.IgnoreCollision(gameObject.collider, collidingObj.collider, ignore);
 	}
 
 	public void FixedUpdate() {
@@ -62,6 +53,5 @@ public class BallController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-
 	}
 }
