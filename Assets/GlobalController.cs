@@ -12,7 +12,7 @@ public class GlobalController : MonoBehaviour {
 	public bool _mode3D;
 
 	private int BRICK_NUM_COLS = 12;
-	private int BRICK_NUM_ROWS = 4;
+	private int BRICK_NUM_ROWS = 7;
 	private float BRICK_WIDTH_BUFFER_SPACE = 0.05f;
 	private float BRICK_HEIGHT_BUFFER_SPACE = 0.05f;
 	private float MIDDLE_STRIP_TOP_Y = 5.57f;
@@ -98,7 +98,7 @@ public class GlobalController : MonoBehaviour {
 				float brickWidth = brick.transform.localScale.x * mainCollider.size.x;
 				float brickHeight = brick.transform.localScale.y * mainCollider.size.y;
 				
-				Vector3 pos = new Vector3(5.4f, 3.0f, 0.0f);
+				Vector3 pos = new Vector3(5.4f, 4.0f, 0.0f);
 				pos.x -= (brickWidth + BRICK_WIDTH_BUFFER_SPACE) * i;
 				pos.y -= (brickHeight + BRICK_HEIGHT_BUFFER_SPACE) * j;
 				
