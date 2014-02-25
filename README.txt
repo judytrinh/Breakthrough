@@ -1,4 +1,5 @@
 BREAKTHROUGH
+by Judy Trinh
 
 Game Objective: The goal of this game ultimately is to end it by eliminating bricks.
 Stay alive for as long as you can; your score will thank you!
