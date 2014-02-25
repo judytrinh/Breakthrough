@@ -47,10 +47,13 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BallController.cs" />
+     <Compile Include="Assets\Electricity\Scripts\LightningBolt.cs" />
      <Compile Include="Assets\GlobalController.cs" />
+     <Compile Include="Assets\KillBoundaryController.cs" />
      <Compile Include="Assets\PaddleController.cs" />
      <Compile Include="Assets\Resources\BrickController.cs" />
      <Compile Include="Assets\WinScreenGUI.cs" />
+     <None Include="Assets\Electricity\Shaders\lightning.shader" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -15,6 +15,8 @@ public class GlobalController : MonoBehaviour {
 	private int BRICK_NUM_ROWS = 4;
 	private float BRICK_WIDTH_BUFFER_SPACE = 0.05f;
 	private float BRICK_HEIGHT_BUFFER_SPACE = 0.05f;
+	private float MIDDLE_STRIP_TOP_Y = 5.57f;
+	private float MIDDLE_STRIP_BOTTOM_Y = 5.51f;
 
 	// frequently referenced objects
 	private GUIText _scoreGUIText;
@@ -22,6 +24,8 @@ public class GlobalController : MonoBehaviour {
 	private GUIText _winLossGUIText;
 	private	GameObject _ballObject;
 	private BallController _ballController;
+	private GameObject _paddleObject;
+	private PaddleController _paddleController;
 	private Camera _mainCamera;
 	private Camera _perspCamera;
 
@@ -48,6 +52,10 @@ public class GlobalController : MonoBehaviour {
 		// init ball reference
 		_ballObject = GameObject.Find("Ball");
 		_ballController = _ballObject.GetComponent<BallController>();
+
+		// init paddle reference
+		_paddleObject = GameObject.Find("Paddle");
+		_paddleController = _paddleObject.GetComponent<PaddleController>();
 
 		// init Win Loss message reference
 		GameObject winLossText = GameObject.Find("Win Loss Text");
@@ -158,13 +166,25 @@ public class GlobalController : MonoBehaviour {
 		// Lose Condition
 		if (_lose) Application.LoadLevel("loss-screen");	
 
-		// reset the ball if it falls below the paddle 
-		if (_ballObject.transform.position.y < 0.8f) {
-			DockLife();
-			_ballController.Reset();
+		// Reset the ball if it hits the middle electric strip, or let it pass through the paddle
+		// if the paddle allows it to
+		Vector3 ballPos = _ballObject.transform.position;
+		if (ballPos.y < MIDDLE_STRIP_TOP_Y && ballPos.y > MIDDLE_STRIP_BOTTOM_Y) {
+
+			// Here, we just need to calculate the paddle's bounds and compare it to the ball's position if the 
+			// paddle allows it to. It's assumed the ball's _invisible == true because otherwise it wouldn't be able
+			// to reach the middle electric strip's y coordinate range.
+			Vector3 pos = _paddleObject.transform.position;
+			Vector3 size = _paddleObject.transform.localScale;
+			float right = pos.x - size.x/2;
+			float left = pos.x + size.x/2;
+			if (!(_ballObject.transform.position.x <= left && _ballObject.transform.position.x >= right)) {
+				DockLife();
+				_ballController.Reset();
+			}
 		}
 
-		// toggle mode
+		// Toggle mode
 		if (Input.GetKey(KeyCode.Q)) {
 			toggle3DMode();
 		}

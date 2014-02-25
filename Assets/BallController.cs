@@ -5,7 +5,7 @@ using System.Collections;
 public class BallController : MonoBehaviour {
 
 	public Vector3 _velocity;
-	private Vector3 RESET_POSITION = new Vector3(0, 5.9f, 0);
+	private Vector3 RESET_POSITION = new Vector3(0, 6.0f, 0);
 	private Vector3 RESET_VELOCITY = new Vector3(3.0f, 3.0f, 0.0f);
 
 	void Start () {
@@ -32,6 +32,7 @@ public class BallController : MonoBehaviour {
 				break;
 			default:
 				Debug.Log("UNHANDLED GAME OBJECT IN BallController.cs: OnCollisionEnter()");
+				Debug.Log (col.gameObject.name);
 				break;
 		}
 	}
