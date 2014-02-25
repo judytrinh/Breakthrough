@@ -29,7 +29,8 @@ public class BrickController : MonoBehaviour {
 		if (_livesLeft > 1) {
 			_livesLeft--;
 			FakeDie();
-			DropPowerup();
+			int num = Random.Range(0, 25);
+			if (num == 3) DropPowerup();
 			Invoke("Respawn", 3);
 		} else {
 			_globalController.KillBrick(POINT_VALUE);
