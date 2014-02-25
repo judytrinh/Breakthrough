@@ -52,6 +52,7 @@
      <Compile Include="Assets\KillBoundaryController.cs" />
      <Compile Include="Assets\PaddleController.cs" />
      <Compile Include="Assets\Resources\BrickController.cs" />
+     <Compile Include="Assets\Resources\ExtendPowerupController.cs" />
      <Compile Include="Assets\WinScreenGUI.cs" />
      <None Include="Assets\Electricity\Shaders\lightning.shader" />
   </ItemGroup>

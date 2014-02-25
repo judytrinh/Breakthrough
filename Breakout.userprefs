@@ -1,22 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/BallController.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Resources/BrickController.cs">
     <Files>
-      <File FileName="Assets/GlobalController.cs" Line="80" Column="24" />
-      <File FileName="Assets/BallController.cs" Line="35" Column="11" />
-      <File FileName="Assets/PaddleController.cs" Line="42" Column="72" />
-      <File FileName="Assets/Resources/BrickController.cs" Line="15" Column="47" />
-      <File FileName="Assets/KillBoundaryController.cs" Line="8" Column="45" />
+      <File FileName="Assets/GlobalController.cs" Line="89" Column="81" />
+      <File FileName="Assets/BallController.cs" Line="44" Column="2" />
+      <File FileName="Assets/PaddleController.cs" Line="50" Column="21" />
+      <File FileName="Assets/Resources/BrickController.cs" Line="41" Column="89" />
+      <File FileName="Assets/KillBoundaryController.cs" Line="7" Column="17" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Electricity" expanded="True">
-              <Node name="Scripts" expanded="True" />
+            <Node name="Resources" expanded="True">
+              <Node name="BrickController.cs" selected="True" />
             </Node>
-            <Node name="Resources" expanded="True" />
-            <Node name="BallController.cs" selected="True" />
           </Node>
         </State>
       </Pad>

@@ -29,11 +29,17 @@ public class BrickController : MonoBehaviour {
 		if (_livesLeft > 1) {
 			_livesLeft--;
 			FakeDie();
+			DropPowerup();
 			Invoke("Respawn", 3);
 		} else {
 			_globalController.KillBrick(POINT_VALUE);
 			Destroy(gameObject);
 		}
+	}
+
+	public void DropPowerup() {
+		GameObject powerup = Instantiate(Resources.Load("ExtendPowerupPrefab")) as GameObject;
+		powerup.transform.position = gameObject.transform.position;
 	}
 
 	public void FakeDie() {
