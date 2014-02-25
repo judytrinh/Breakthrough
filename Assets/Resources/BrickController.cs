@@ -4,7 +4,7 @@ using System.Collections;
 public class BrickController : MonoBehaviour {
 
 	private int LIVES = 5;
-	private int POINT_VALUE = 1000;
+	private int POINT_VALUE = 5000;
 
 	private int _livesLeft;
 	private GameObject _ball;
