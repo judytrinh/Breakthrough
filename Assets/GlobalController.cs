@@ -4,6 +4,8 @@ using System.Collections;
 public class GlobalController : MonoBehaviour {
 
 	private int _score;
+	private int _pointsPerSec;
+	private int _multiplier;
 	private int _livesLeft;
 	private int _bricksRemaining;
 	public bool _paused;
@@ -17,10 +19,12 @@ public class GlobalController : MonoBehaviour {
 	private float BRICK_HEIGHT_BUFFER_SPACE = 0.05f;
 	private float MIDDLE_STRIP_TOP_Y = 5.57f;
 	private float MIDDLE_STRIP_BOTTOM_Y = 5.51f;
+	private int NUM_PLAYER_LIVES = 5;
 
 	// frequently referenced objects
 	private GUIText _scoreGUIText;
 	private GUIText _livesGUIText;
+	private GUIText _multiplierGUIText;
 	private GUIText _winLossGUIText;
 	private	GameObject _ballObject;
 	private BallController _ballController;
@@ -36,7 +40,9 @@ public class GlobalController : MonoBehaviour {
 		_mode3D = false;
 
 		_score = 0;
-		_livesLeft = 3;
+		_pointsPerSec = 1;
+		_multiplier = 1;
+		_livesLeft = NUM_PLAYER_LIVES;
 		_bricksRemaining = BRICK_NUM_COLS * BRICK_NUM_ROWS * 2;
 
 		// init score text
@@ -48,6 +54,11 @@ public class GlobalController : MonoBehaviour {
 		GameObject livesText = GameObject.Find("Lives Text");
 		_livesGUIText = livesText.GetComponent<GUIText>();
 		updateLivesText();
+
+		// init multiplier text
+		GameObject multiplierText = GameObject.Find("Multiplier Text");
+		_multiplierGUIText = multiplierText.GetComponent<GUIText>();
+		updateMultiplierText();
 
 		// init ball reference
 		_ballObject = GameObject.Find("Ball");
@@ -105,12 +116,12 @@ public class GlobalController : MonoBehaviour {
 				brick.transform.position = pos;
 			}
 		}
-		//createReplayButton();
+
+		InvokeRepeating("multiplyMultiplier", 5, 5);
 	}
 
 	private void createWinScreen() {
 		_winLossGUIText.text = "You Win!";
-		//createReplayButton();
 	}
 
 	private void createLossScreen() {
@@ -126,12 +137,16 @@ public class GlobalController : MonoBehaviour {
 	}
 
 	public void DockLife() {
-		if (_livesLeft > 0) {
+		if (_livesLeft > 1) {
 			_livesLeft--;
 			updateLivesText();
 		} else {
 			_lose = true;
 		}
+	}
+
+	public void ResetMultiplier() {
+		_multiplier = 1;
 	}
 	
 	private void updateScoreText() {
@@ -140,6 +155,10 @@ public class GlobalController : MonoBehaviour {
 
 	private void updateLivesText() {
 		_livesGUIText.text = "Lives: " + _livesLeft;
+	}
+
+	private void updateMultiplierText() {
+		_multiplierGUIText.text = "Multiplier: x" + _multiplier;
 	}
 
 	private void toggle3DMode() {
@@ -157,8 +176,16 @@ public class GlobalController : MonoBehaviour {
 		}
 	}
 
+	private void multiplyMultiplier() {
+		_multiplier *= 2;
+		updateMultiplierText();
+	}
+
 	// Update is called once per frame
 	void Update () {
+	
+		_score += _pointsPerSec * _multiplier;
+		updateScoreText();
 
 		// Win Condition
 		if (_win) Application.LoadLevel("win-screen");
@@ -180,6 +207,8 @@ public class GlobalController : MonoBehaviour {
 			float left = pos.x + size.x/2;
 			if (!(_ballObject.transform.position.x <= left && _ballObject.transform.position.x >= right)) {
 				DockLife();
+				ResetMultiplier();
+				updateMultiplierText();
 				_ballController.Reset();
 			}
 		}
