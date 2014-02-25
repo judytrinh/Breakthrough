@@ -21,6 +21,13 @@ public class PaddleController : MonoBehaviour {
 		_ball = GameObject.Find("Ball");
 		_ballController = _ball.GetComponent<BallController>();
 	}
+
+	void onCollisionEnter(Collision col) {
+		if (col.gameObject.name == "ExtendPowerupPrefab(Clone") {
+			// AFFECT PADDLE
+			Destroy(col.gameObject);
+		}
+	}
 	
 	// Update is called once per frame
 	void Update () {
